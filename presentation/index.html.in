@@ -47,8 +47,10 @@
 ====================
 
 ## Outline
-- Something
-- Something else
+- Motivation
+- Efficiency
+- Usability
+- Implementation Tips
 
 ----
 
@@ -60,11 +62,54 @@ advertized.
 ====================
 
 # Part 1
-## Something
+## Motivation
+
+### Let's start from first principles.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-%%test_code%%
+## Why do we write libraries?
+
+### Code reuse of course!
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+### This is Principle 1 that should drive all our work as library writers.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+### What makes library code different from application code?
+
+We don't know all the requirements for use at the time we write the code.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+Q: How much time can I spend in `handle_click()` and still be efficient enough?
+
+%%button_click_handler%%
+
+A: A lot!  I have about 100 milliseconds to do whatever I want, because the
+user will never notice any latency less than that after a click.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+Q: What about here?
+
+%%lib_code_1%%
+
+A: I have no idea
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+... and neither do you.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+TODO
+
         </script>
       </section>
     </div>
