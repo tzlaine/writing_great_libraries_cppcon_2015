@@ -1,1 +1,1 @@
-# writing_great_libraries_cppcon_2015
+# Writing Great Libraries (CppCon 2015)
