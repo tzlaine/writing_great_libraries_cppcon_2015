@@ -74,7 +74,7 @@ advertized.
 ### Code reuse of course!
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-### This is Principle 1 that should drive all our work as library writers.
+### This is the guiding principle that should drive all our work as library writers.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
@@ -108,7 +108,94 @@ A: I have no idea
 
 ----
 
-TODO
+We must make a library as usable as possible to anyone that might want to use
+it (and no more).
+
+That implies efficiency is our goal, since we're working in C++, and maximum efficiency, since we don't know the usage context.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+It also implies maximal reusability, for the same reason.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+### To Summarize
+
+### Principle 0: We write libraries for code reuse.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+### Principle 1: Libraries must be maxmially efficient (see Principle 0).
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+### Principle 2: Libraries must be maxmially usable (see Principle 0).
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+====================
+
+# Part 2
+## Efficiency
+
+----
+
+We all know lots of guidelines for making C++ efficient:
+
+Make your moves noexcept.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Minimize copies.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Minimize resource allocation.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+Etc....
+<!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+Those are all implementation guidelines.
+
+We must derive interface guidelines from such implementation guidelines.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+How do we do this, when we don't know the usage context?
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+### An Example: Getting a sequence of things
+
+The C way:
+
+%%c_range_interface%%
+
+%%c_range_usage_1%%
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+This interface requires:
+
+- Checking of the parameter to `get_x()` in library code (N*2 branches).
+- Checking the result of `get_x()` in user code (N branches).
+- N+1 function calls.
+
+----
+
+What we would like is:
+
+- <= 2 branches
+- <= 2 function calls
+
+----
+
+TODO: For Usage example:
+
+What happens when I try to restrict the number of X's I want?
+
+%%c_range_usage_2%%
+
+I might introduce an indexing error!
 
         </script>
       </section>
