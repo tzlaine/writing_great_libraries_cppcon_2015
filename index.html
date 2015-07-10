@@ -208,10 +208,86 @@ This interface requires:
 
 ----
 
-What we would like is:
+We would like:
 
-- <= 2 branches
-- <= 2 function calls
+- Minimal branches
+- Minimal function calls
+
+----
+
+Maybe this is better?
+
+```cpp
+std::vector<X> get_xs ();
+```
+
+A bit, yes.  We only need to call one function, and there are no more
+per-element branches.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+However, do we really need to allocate memory?  Maybe the user just needs to
+see each element, not copy it.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Also, what happens if the range has no bound?
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+Better still is a lazy range:
+
+```cpp
+struct x_range {
+    // iterator into our internal storage
+    using iterator = std::vector<X>::const_iterator;
+    iterator first, last;
+};
+
+x_range::iterator begin (x_range r)
+{ return r.first; }
+
+x_range::iterator end (x_range r)
+{ return r.last; }
+
+std::size_t size (x_range r)
+{ return end(r) - begin(r); }
+
+x_range get_xs ();
+```
+
+----
+
+```cpp
+x_range range = get_xs();
+for (auto const & x : range) {
+    use(x);
+}
+
+// This will use memcpy for PODs, etc.
+std::vector<X> copy_of_xs(size(range));
+std::copy(begin(range), end(range), copy_of_xs.begin());
+```
+
+----
+
+This still doesn't handle unbounded ranges, but it could if you changed the
+iterators to input iterators.
+
+This gives up the copyability properties, though.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+### Efficiency Guidelines
+
+Your code needs to be efficient, in all reasonably forseeable cases.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+To get there, constantly ask "what if ...".
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Don't be stupid.
+<!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
@@ -231,6 +307,14 @@ for (int i = 0; i < num; ++i) {
 ```
 
 I might introduce an indexing error!
+
+----
+
+TODO
+
+There are two audiences you are writing for when you write code: human readers
+and the compiler.  You have to make your code easy to reason about for *both*
+audiences as a library writer.
 
         </script>
       </section>

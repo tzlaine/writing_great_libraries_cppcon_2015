@@ -182,10 +182,58 @@ This interface requires:
 
 ----
 
-What we would like is:
+We would like:
 
-- <= 2 branches
-- <= 2 function calls
+- Minimal branches
+- Minimal function calls
+
+----
+
+Maybe this is better?
+
+%%c++_range_interface_1%%
+
+A bit, yes.  We only need to call one function, and there are no more
+per-element branches.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+However, do we really need to allocate memory?  Maybe the user just needs to
+see each element, not copy it.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Also, what happens if the range has no bound?
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+Better still is a lazy range:
+
+%%c++_lazy_range_interface%%
+
+----
+
+%%c++_lazy_range_usage%%
+
+----
+
+This still doesn't handle unbounded ranges, but it could if you changed the
+iterators to input iterators.
+
+This gives up the copyability properties, though.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+### Efficiency Guidelines
+
+Your code needs to be efficient, under all reasonably forseeable usage scenarios.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+To get there, constantly ask "what if ...".
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Don't be stupid.
+<!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
@@ -196,6 +244,14 @@ What happens when I try to restrict the number of X's I want?
 %%c_range_usage_2%%
 
 I might introduce an indexing error!
+
+----
+
+TODO
+
+There are two audiences you are writing for when you write code: human readers
+and the compiler.  You have to make your code easy to reason about for *both*
+audiences as a library writer.
 
         </script>
       </section>

@@ -1,3 +1,5 @@
+#include <vector>
+
 // sample(c_range_interface)
 struct X { /*...*/ };
 
@@ -14,6 +16,40 @@ const X* get_x (int i)
 
 void use(const X*)
 {
+}
+void use(const X&)
+{
+}
+
+namespace cpp_interface_1 {
+// sample(c++_range_interface_1)
+std::vector<X> get_xs ();
+// end-sample
+}
+
+// sample(c++_lazy_range_interface)
+struct x_range {
+    // iterator into our internal storage
+    using iterator = std::vector<X>::const_iterator;
+    iterator first, last;
+};
+
+x_range::iterator begin (x_range r)
+{ return r.first; }
+
+x_range::iterator end (x_range r)
+{ return r.last; }
+
+std::size_t size (x_range r)
+{ return end(r) - begin(r); }
+
+x_range get_xs ();
+// end-sample
+
+x_range get_xs ()
+{
+    static std::vector<X> v;
+    return x_range{v.begin(), v.end()};
 }
 
 int main()
@@ -39,5 +75,18 @@ for (int i = 0; i < num; ++i) {
 }
 }
 // end-sample
+
+{
+// sample(c++_lazy_range_usage)
+x_range range = get_xs();
+for (auto const & x : range) {
+    use(x);
+}
+
+// This will use memcpy for PODs, etc.
+std::vector<X> copy_of_xs(size(range));
+std::copy(begin(range), end(range), copy_of_xs.begin());
+// end-sample
+}
     return 0;
 }
