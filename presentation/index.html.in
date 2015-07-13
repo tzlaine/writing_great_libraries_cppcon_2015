@@ -119,6 +119,15 @@ It also implies maximal reusability, for the same reason.
 
 ----
 
+There are two audiences you are writing for when you write code: human readers
+and the compiler.  You have to make your code easy to reason about for *both*
+audiences as a library writer.
+
+Messy implementation details need to be isolated from the public interface.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
 ### To Summarize
 
 ### Principle 0: We write libraries for code reuse.
@@ -235,23 +244,34 @@ To get there, constantly ask "what if ...".
 Don't be stupid.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
+====================
+
+# Part 3
+## Usability
+
 ----
 
-TODO: For Usage example:
+### The Principle of Least Surprise
 
-What happens when I try to restrict the number of X's I want?
+Which is a better name for a function that keeps certain elements of a
+sequence based on a predicate?
 
-%%c_range_usage_2%%
-
-I might introduce an indexing error!
+copy_if()?  filter()?
 
 ----
 
 TODO
 
-There are two audiences you are writing for when you write code: human readers
-and the compiler.  You have to make your code easy to reason about for *both*
-audiences as a library writer.
+Again, given this:
+
+%%c_range_interface%%
+
+Q: What happens when I try to restrict the number of X's I want?
+
+%%c_range_usage_2%%
+
+A: I might introduce an indexing error!
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
         </script>
       </section>
