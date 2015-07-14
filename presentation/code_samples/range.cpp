@@ -14,6 +14,9 @@ int num_xs ()
 const X* get_x (int i)
 { return nullptr; }
 
+void remove_x (int i)
+{}
+
 void use(const X*)
 {
 }
@@ -52,6 +55,9 @@ x_range get_xs ()
     return x_range{v.begin(), v.end()};
 }
 
+int some_index ()
+{ return 0; }
+
 int main()
 {
 {
@@ -71,6 +77,20 @@ int num = num_xs();
 // in order to take a subset of num_xs() ...
 for (int i = 0; i < num; ++i) {
     const X* x = get_x(i);
+    use(x);
+}
+}
+// end-sample
+
+{
+// sample(c_range_usage_3)
+int num = num_xs();
+// Fiery explosion when i == num - 1.
+// If we're lucky.
+for (int i = 0; i < num; ++i) {
+    const X* x = get_x(i);
+    if (i == some_index())
+        remove_x(i);
     use(x);
 }
 }

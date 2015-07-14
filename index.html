@@ -305,7 +305,7 @@ Don't be stupid.
 
 ----
 
-Many libraries create their own sort of DSL within C++.  Some are just a small
+Some libraries create their own sort of DSL within C++.  Some are just a small
 set of functions.
 
 In either case, make sure the code written with the library is understandable
@@ -329,15 +329,37 @@ auto z = a * x + y; // Now this I get.
 
 ### The Principle of Least Surprise
 
-Q: Which is a better name for a function that keeps certain elements of a
-sequence based on a predicate, `copy_if()` or `filter()`?
+Pick names and interface conventions that are familiar.
 
-
+In C++, that often means "look like the STL".
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-TODO
+Q: Which is a better name for a function that keeps certain elements of a
+sequence based on a predicate, `copy_if()` or `filter()`?
+
+A: It's copy_if(), by the same logic we applied to the previous slide.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+When I see copy_if(), I know what's happening.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+When I see filter(), I have to go look at docs to know if things are
+filtered-in or filtered-out.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+If I assume the wrong convention, I'm in for a nasty surprise.
+<!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+### Guideline 1: Spelling is important.
+
+Picking the right spelling avoids misuse, increases understanding, and
+sidesteps "The Principle of Least Surprise".
+
+----
 
 Again, given this:
 
@@ -350,6 +372,7 @@ const X* get_x (int i);
 ```
 
 Q: What happens when I try to restrict the number of X's I want?
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ```cpp
 int num = num_xs();
@@ -361,9 +384,42 @@ for (int i = 0; i < num; ++i) {
 }
 }
 ```
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 A: I might introduce an indexing error!
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+Or, I might munge the sequence itself:
+
+```cpp
+int num = num_xs();
+// Fiery explosion when i == num - 1.
+// If we're lucky.
+for (int i = 0; i < num; ++i) {
+    const X* x = get_x(i);
+    if (i == some_index())
+        remove_x(i);
+    use(x);
+}
+}
+```
+
+----
+
+The lazy range solution makes both sorts of errors literally impossible.
+
+```cpp
+x_range range = get_xs();
+for (auto const & x : range) {
+    use(x);
+}
+
+// This will use memcpy for PODs, etc.
+std::vector<X> copy_of_xs(size(range));
+std::copy(begin(range), end(range), copy_of_xs.begin());
+```
 
         </script>
       </section>
