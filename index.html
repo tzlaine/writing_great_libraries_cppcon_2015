@@ -133,6 +133,15 @@ It also implies maximal reusability, for the same reason.
 
 ----
 
+There are two audiences you are writing for when you write code: human readers
+and the compiler.  You have to make your code easy to reason about for *both*
+audiences as a library writer.
+
+Messy implementation details need to be isolated from the public interface.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
 ### To Summarize
 
 ### Principle 0: We write libraries for code reuse.
@@ -280,7 +289,7 @@ This gives up the copyability properties, though.
 
 ### Efficiency Guidelines
 
-Your code needs to be efficient, in all reasonably forseeable cases.
+Your code needs to be efficient, under all reasonably forseeable usage scenarios.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 To get there, constantly ask "what if ...".
@@ -289,11 +298,58 @@ To get there, constantly ask "what if ...".
 Don't be stupid.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
+====================
+
+# Part 3
+## Usability
+
 ----
 
-TODO: For Usage example:
+Many libraries create their own sort of DSL within C++.  Some are just a small
+set of functions.
 
-What happens when I try to restrict the number of X's I want?
+In either case, make sure the code written with the library is understandable
+by someone who has not used that library before.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+```cpp
+matrix_t saxpy (double a, matrix_t const& x, matrix_t const& y);
+auto z = saxpy(a, x, y); // Wha?
+```
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+```cpp
+matrix_t operator* (double a, matrix_t const& x);
+matrix_t operator+ (matrix_t const& x, matrix_t const& y);
+auto z = a * x + y; // Now this I get.
+```
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+### The Principle of Least Surprise
+
+Q: Which is a better name for a function that keeps certain elements of a
+sequence based on a predicate, `copy_if()` or `filter()`?
+
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+TODO
+
+Again, given this:
+
+```cpp
+struct X { /*...*/ };
+
+int num_xs ();
+
+const X* get_x (int i);
+```
+
+Q: What happens when I try to restrict the number of X's I want?
 
 ```cpp
 int num = num_xs();
@@ -306,15 +362,8 @@ for (int i = 0; i < num; ++i) {
 }
 ```
 
-I might introduce an indexing error!
-
-----
-
-TODO
-
-There are two audiences you are writing for when you write code: human readers
-and the compiler.  You have to make your code easy to reason about for *both*
-audiences as a library writer.
+A: I might introduce an indexing error!
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
         </script>
       </section>
