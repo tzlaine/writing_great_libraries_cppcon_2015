@@ -244,10 +244,33 @@ Don't be stupid.
 
 ----
 
-### Guideline 1: Spelling is important.
+## Names Are Important
 
-Picking the right spelling avoids misuse, increases understanding, and
-sidesteps "The Principle of Least Surprise".
+Don't give your interfaces unintuitive names!
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+### An Example: Selecting from a Sequence
+
+%%filter%%
+
+What does this do?
+
+Does it filter in or filter out?
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Go find out!  I'll wait....
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+%%copy_if%%
+
+What does this do?
+
+Everyone here knows what this does.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 

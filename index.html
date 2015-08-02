@@ -52,13 +52,6 @@
 - Usability
 - Implementation Tips
 
-----
-
-## A Quick Aside
-
-All the code you will see in this presentation compiles and works as
-advertized.
-
 ====================
 
 # Part 1
@@ -305,59 +298,55 @@ Don't be stupid.
 
 ----
 
-Some libraries create their own sort of DSL within C++.  Some are just a small
-set of functions.
+## Names Are Important
 
-In either case, make sure the code written with the library is understandable
-by someone who has not used that library before.
+Don't give your interfaces unintuitive names!
 <!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+### An Example: Selecting from a Sequence
 
 ```cpp
-matrix_t saxpy (double a, matrix_t const& x, matrix_t const& y);
-auto z = saxpy(a, x, y); // Wha?
+struct X
+{
+    int value;
+    /*...*/
+};
+std::vector<X> xs = {/*...*/};
+std::vector<X> selected_xs;
+
+filter(
+    xs.begin(),
+    xs.end(),
+    std::back_inserter(selected_xs),
+    [](X const & x) { return x.value == 42; }
+);
 ```
+
+What does this do?
+
+Does it filter in or filter out?
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Go find out!  I'll wait....
 <!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
 
 ```cpp
-matrix_t operator* (double a, matrix_t const& x);
-matrix_t operator+ (matrix_t const& x, matrix_t const& y);
-auto z = a * x + y; // Now this I get.
+std::copy_if(
+    xs.begin(),
+    xs.end(),
+    std::back_inserter(selected_xs),
+    [](X const & x) { return x.value == 42; }
+);
 ```
-<!-- .element: class="fragment" data-fragment-index="3" -->
 
-----
+What does this do?
 
-### The Principle of Least Surprise
-
-Pick names and interface conventions that are familiar.
-
-In C++, that often means "look like the STL".
+Everyone here knows what this does.
 <!-- .element: class="fragment" data-fragment-index="1" -->
-
-----
-
-Q: Which is a better name for a function that keeps certain elements of a
-sequence based on a predicate, `copy_if()` or `filter()`?
-
-A: It's copy_if(), by the same logic we applied to the previous slide.
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-When I see copy_if(), I know what's happening.
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
-When I see filter(), I have to go look at docs to know if things are
-filtered-in or filtered-out.
-<!-- .element: class="fragment" data-fragment-index="3" -->
-
-If I assume the wrong convention, I'm in for a nasty surprise.
-<!-- .element: class="fragment" data-fragment-index="4" -->
-
-----
-
-### Guideline 1: Spelling is important.
-
-Picking the right spelling avoids misuse, increases understanding, and
-sidesteps "The Principle of Least Surprise".
 
 ----
 
@@ -420,6 +409,11 @@ for (auto const & x : range) {
 std::vector<X> copy_of_xs(size(range));
 std::copy(begin(range), end(range), copy_of_xs.begin());
 ```
+
+----
+
+### Guideline 1: Make usage errors impossible, when possible, and difficult
+otherwise.
 
         </script>
       </section>
