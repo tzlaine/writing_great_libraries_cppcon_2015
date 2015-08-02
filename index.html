@@ -348,6 +348,58 @@ What does this do?
 Everyone here knows what this does.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
+Unclear (nonobvious) names make code hard to reason about, and thus decrease
+productivity.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+##The Principle of Least Surprise
+
+Don't make your interfaces do unexpectable things.
+
+----
+
+###An Example:
+
+```cpp
+struct X
+{/*...*/};
+
+void RegisterX(X const * x);
+X * x = new X{/*...*/};
+RegisterX(x);
+```
+
+This looks pretty clear, right?
+
+----
+
+```cpp
+void RegisterX(X const * x)
+{
+    if (x) {
+        // Some stuff that "registers" x here...
+    }
+    delete x; // WTF
+}
+```
+
+How was I supposed to know this would happen?
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+That name is so misleading!
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Names are important.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+##Make interfaces impossible to use incorrectly
+
+TODO
+
 ----
 
 Again, given this:

@@ -1,19 +1,6 @@
-Motivation
-
-* the difference between application code and library code
-* libraries are all about maximizing code reuse
-
-Efficiency
-
-* making APIs efficient
-  * noexcept move
-  * minimizing copies
-  * minimizing resource allocation
-
 Usability
 
 * ease of use in APIs
-  * principle of least surprise
   * making APIs that are difficult to impossible to use wrong (numX() +
     getX(int index) vs. a lazy range)
   * minimizing aliases
