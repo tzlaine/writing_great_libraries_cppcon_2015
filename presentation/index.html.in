@@ -52,13 +52,6 @@
 - Usability
 - Implementation Tips
 
-----
-
-## A Quick Aside
-
-All the code you will see in this presentation compiles and works as
-advertized.
-
 ====================
 
 # Part 1
@@ -248,50 +241,6 @@ Don't be stupid.
 
 # Part 3
 ## Usability
-
-----
-
-Some libraries create their own sort of DSL within C++.  Some are just a small
-set of functions.
-
-In either case, make sure the code written with the library is understandable
-by someone who has not used that library before.
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-%%bad_matrix_interface%%
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
-%%good_matrix_interface%%
-<!-- .element: class="fragment" data-fragment-index="3" -->
-
-TODO: Guidleine 0: Something about ease of correct use.
-
-----
-
-### The Principle of Least Surprise
-
-Pick names and interface conventions that are familiar.
-
-In C++, that often means "look like the STL".
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-----
-
-Q: Which is a better name for a function that keeps certain elements of a
-sequence based on a predicate, `copy_if()` or `filter()`?
-
-A: It's copy_if(), by the same logic we applied to the previous slide.
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-When I see copy_if(), I know what's happening.
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
-When I see filter(), I have to go look at docs to know if things are
-filtered-in or filtered-out.
-<!-- .element: class="fragment" data-fragment-index="3" -->
-
-If I assume the wrong convention, I'm in for a nasty surprise.
-<!-- .element: class="fragment" data-fragment-index="4" -->
 
 ----
 
