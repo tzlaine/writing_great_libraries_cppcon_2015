@@ -307,22 +307,32 @@ Names are important.
 
 ##Make interfaces impossible to use incorrectly
 
-TODO
+If that proves impossible, make interfaces difficult to use incorrectly.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-Again, given this:
+###An example:
 
-%%c_range_interface%%
-
-Q: What happens when I try to restrict the number of X's I want?
-<!-- .element: class="fragment" data-fragment-index="1" -->
+What happens when we try to restrict the number of X's we want?
 
 %%c_range_usage_2%%
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-A: I might introduce an indexing error!
+We might introduce an indexing error!
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+If num_xs() < num and we do not check that x != nullptr, we get UB (and a crash if we're lucky).
 <!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+We are less likely to get errors of this kind using the range-based approach,
+because we are not allowed to directly index into the range.
+
+If we change the iterator category of the range to InputIterator, the indexing
+errors become impossible.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 

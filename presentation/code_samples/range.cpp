@@ -79,8 +79,8 @@ for (int i = 0; i < num; ++i) {
     const X* x = get_x(i);
     use(x);
 }
-}
 // end-sample
+}
 
 {
 // sample(c_range_usage_3)
