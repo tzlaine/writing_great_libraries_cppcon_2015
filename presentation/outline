@@ -1,9 +1,6 @@
 Usability
 
 * ease of use in APIs
-  * making APIs that are difficult to impossible to use wrong (numX() +
-    getX(int index) vs. a lazy range)
-  * minimizing aliases
   * maximize composability
     * regular types
     * pure functions

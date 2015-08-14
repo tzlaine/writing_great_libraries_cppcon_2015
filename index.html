@@ -435,40 +435,189 @@ errors become impossible.
 
 ----
 
-Or, I might munge the sequence itself:
+##Avoid Aliasing
 
-```cpp
-int num = num_xs();
-// Fiery explosion when i == num - 1.
-// If we're lucky.
-for (int i = 0; i < num; ++i) {
-    const X* x = get_x(i);
-    if (i == some_index())
-        remove_x(i);
-    use(x);
-}
-}
-```
+Aliasing confuses you, your users, and the compiler.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-The lazy range solution makes both sorts of errors literally impossible.
+###An example:
 
 ```cpp
-x_range range = get_xs();
-for (auto const & x : range) {
-    use(x);
+void xor_swap (int & a, int & b)
+{
+    a ^= b;
+    b ^= a;
+    a ^= b;
 }
-
-// This will use memcpy for PODs, etc.
-std::vector<X> copy_of_xs(size(range));
-std::copy(begin(range), end(range), copy_of_xs.begin());
 ```
+
+Why is this wrong?
 
 ----
 
-### Guideline 1: Make usage errors impossible, when possible, and difficult
-otherwise.
+```cpp
+void xor_swap (int & a, int & b)
+{
+    if (&a != &b) {
+        a ^= b;
+        b ^= a;
+        a ^= b;
+    }
+}
+```
+
+Why is this bad?
+
+The extra branch is certainly bad.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Having to consider such things as identity is pretty bad too.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+```cpp
+void xor_swap (int & a_, int & b_)
+{
+    int a = a_, b = b_;
+
+    a ^= b;
+    b ^= a;
+    a ^= b;
+
+    a_ = a; b_ = b;
+}
+```
+
+This is better.
+
+```cpp
+std::pair<int, int> xor_swap (int a, int b)
+{
+    a ^= b;
+    b ^= a;
+    a ^= b;
+    return std::make_pair(a, b);
+}
+```
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+So is this.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+As a guideline, avoid pointers and references wherever possible, to avoid your
+own difficulty in understanding your implementation.
+
+Sometimes references are unavoidable.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Look at the code your compiler generates to determine if this is really the case.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+###Another example:
+
+```cpp
+struct Base { /*...*/ };
+
+struct S : Base { /*...*/ };
+
+unsigned int * get_index (Base & b);
+
+std::pair<S *, unsigned int *> make_s_with_index ();
+```
+
+As a user of make_s_with_index() who does not have access to the
+implementation, what are your questions about how it behaves?
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+Possible implementation:
+
+```cpp
+std::pair<S *, unsigned int *> make_s_with_index ()
+{
+    std::pair<S *, unsigned int *> retval{new S, nullptr};
+    retval.second = get_index(*retval.first);
+}
+```
+
+1) Does get_index() throw?
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+2) If the answer to 1 is true, does that mean that make_s_with_index() throws too?
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+3) If the answer to 2 is false, does that mean that make_s_with_index()
+swallows all exceptions produced by get_index()?
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+How about this instead?
+
+```cpp
+struct Base { /*...*/ };
+
+struct S : Base { /*...*/ };
+
+unsigned int * get_index (Base & b);
+
+// We could also use std::unique_ptr<S> here.
+std::pair<S, unsigned int *> make_s_with_index ();
+```
+
+I no longer have any of those questions from before.  From the interface alone, I know the answers:
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+1) Whether get_index() throws is largely moot -- see below.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+2) If get_index() throws, so does make_s_with_index().
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+3) Whatever get_index() throws, make_s_with_index() throws the same thing.
+<!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+As another guideline, keep (raw and shared-) pointers and references out of
+your APIs.  They make your code harder to reason about.
+
+Raw and shared pointers are shared state.  They have all the same problems as
+global state.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+###To recap, we just covered:
+
+- Names Are Important
+- The Principle of Least Surprise
+- Make interfaces impossible to use incorrectly
+- Avoid Aliasing
+
+What is the common through-line in all of those?
+
+Your code must be easy to reason about to be usable.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+These are not actually separate topics, but different aspects of the same
+principle.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+====================
+
+# Part 3.5
+## Usability (Specifically Composability)
+
+----
 
         </script>
       </section>

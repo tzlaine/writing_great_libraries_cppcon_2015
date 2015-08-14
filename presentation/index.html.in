@@ -336,20 +336,131 @@ errors become impossible.
 
 ----
 
-Or, I might munge the sequence itself:
+##Avoid Aliasing
 
-%%c_range_usage_3%%
-
-----
-
-The lazy range solution makes both sorts of errors literally impossible.
-
-%%c++_lazy_range_usage%%
+Aliasing confuses you, your users, and the compiler.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-### Guideline 1: Make usage errors impossible, when possible, and difficult
-otherwise.
+###An example:
+
+%%wrong_xor_swap%%
+
+Why is this wrong?
+
+----
+
+%%bad_xor_swap%%
+
+Why is this bad?
+
+The extra branch is certainly bad.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Having to consider such things as identity is pretty bad too.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+%%less_bad_xor_swap%%
+
+This is better.
+
+%%ok_xor_swap%%
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+So is this.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+As a guideline, avoid pointers and references wherever possible, to avoid your
+own difficulty in understanding your implementation.
+
+Sometimes references are unavoidable.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Look at the code your compiler generates to determine if this is really the case.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+###Another example:
+
+%%unclear_pointer_using_code%%
+
+As a user of make_s_with_index() who does not have access to the
+implementation, what are your questions about how it behaves?
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+Possible implementation:
+
+%%possible_unclear_make_s_with_index_impl%%
+
+1) Does get_index() throw?
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+2) If the answer to 1 is true, does that mean that make_s_with_index() throws too?
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+3) If the answer to 2 is false, does that mean that make_s_with_index()
+swallows all exceptions produced by get_index()?
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+How about this instead?
+
+%%clearer_pointer_using_code%%
+
+I no longer have any of those questions from before.  From the interface alone, I know the answers:
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+1) Whether get_index() throws is largely moot -- see below.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+2) If get_index() throws, so does make_s_with_index().
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+3) Whatever get_index() throws, make_s_with_index() throws the same thing.
+<!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+As another guideline, keep (raw and shared-) pointers and references out of
+your APIs.  They make your code harder to reason about.
+
+Raw and shared pointers are shared state.  They have all the same problems as
+global state.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+###To recap, we just covered:
+
+- Names Are Important
+- The Principle of Least Surprise
+- Make interfaces impossible to use incorrectly
+- Avoid Aliasing
+
+What is the common through-line in all of those?
+
+Your code must be easy to reason about to be usable.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+These are not actually separate topics, but different aspects of the same
+principle.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+====================
+
+# Part 3.5
+## Usability (Specifically Composability)
+
+----
 
         </script>
       </section>
