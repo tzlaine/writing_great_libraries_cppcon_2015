@@ -460,24 +460,79 @@ principle.
 # Part 3.5
 ## Composability
 
-(This is another aspect of usability of course.)
+This is another aspect of usability of course.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-    * regular types
-    * pure functions
-    * basis functions (EoP 1.5)
-    * STL is M+N instead of M*N.  That's great once it's explained to you.
-      How do you get there as-you-go when implementing your own solution?  A:
-      Don't ever, ever add things to your types' bases that can be done in
-      terms of the existing basis.  This will allow you to generalize (and
-      often force you to think about it).
-    * interoperable with STL algorithms and in range-based for loops, if
-      appropriate
-    * usable in a container or a subobject
-    * usable anywhere (heap, stack, static storage, constant expressions)
-    * Error messages *must* be usable, or your library is not.  See
-      Boost.Graph or Boost.Spirit vs. Range v3.
+And now, some assertions.
+
+----
+
+###Types should be regular
+
+Regular means:
+
+- Default constructible
+<!-- .element: class="fragment" data-fragment-index="1" -->
+- Copyable
+<!-- .element: class="fragment" data-fragment-index="2" -->
+- Movable
+<!-- .element: class="fragment" data-fragment-index="3" -->
+- Assignable
+<!-- .element: class="fragment" data-fragment-index="4" -->
+- Destructible
+<!-- .element: class="fragment" data-fragment-index="5" -->
+- Equality-comparable
+<!-- .element: class="fragment" data-fragment-index="6" -->
+
+----
+
+###Functions should be pure
+
+Pure functions have no side effects (and therefore no aliasing).
+
+----
+
+###Types should define a basis
+
+A member function basis is the minimal set of functions required to
+efficiently maintain a type's invariants.
+
+A type should not include other member functions that are not part of its
+basis.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- EoP 1.5 -->
+
+----
+
+Now to justify those assertions ..
+
+----
+
+STL is M+N instead of M*N.  That's great once it's explained to you.  How do
+you get there as-you-go when implementing your own solution?  A: Don't ever,
+ever add things to your types' bases that can be done in terms of the existing
+basis.  This will allow you to generalize (and often force you to think about
+it).
+
+----
+
+interoperable with STL algorithms and in range-based for loops, if
+appropriate
+
+----
+
+usable in a container or a subobject
+
+----
+
+usable anywhere (heap, stack, static storage, constant expressions)
+
+----
+
+Error messages *must* be usable, or your library is not.  See Boost.Graph or
+Boost.Spirit vs. Range v3.
 
 ====================
 
