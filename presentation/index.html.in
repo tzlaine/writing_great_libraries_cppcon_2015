@@ -458,9 +458,51 @@ principle.
 ====================
 
 # Part 3.5
-## Usability (Specifically Composability)
+## Composability
+
+(This is another aspect of usability of course.)
 
 ----
+
+    * regular types
+    * pure functions
+    * basis functions (EoP 1.5)
+    * STL is M+N instead of M*N.  That's great once it's explained to you.
+      How do you get there as-you-go when implementing your own solution?  A:
+      Don't ever, ever add things to your types' bases that can be done in
+      terms of the existing basis.  This will allow you to generalize (and
+      often force you to think about it).
+    * interoperable with STL algorithms and in range-based for loops, if
+      appropriate
+    * usable in a container or a subobject
+    * usable anywhere (heap, stack, static storage, constant expressions)
+    * Error messages *must* be usable, or your library is not.  See
+      Boost.Graph or Boost.Spirit vs. Range v3.
+
+====================
+
+# Part 4
+## Library Implementation Tips
+
+----
+
+* look at lots of other library interfaces, take notes
+* think of this process as discovering correct solutions, not inventing them;
+  if you try something and it doesn't work or has notable warts, keep
+  searching
+* implementation *is* design -- try to use your code as you go, and refine
+  (sand off rough corners); this is an iterative endeavor
+* documentation is important to users, and also very, very, useful to the
+  design process
+* anticipate future need, but don't *over* generalize
+* header-only vs. compiled (try .ipp pattern for FOSS projects)
+* inline namespaces
+* implement functions and types that seem like they should be generic with a
+  concrete type first, then lift the concrete type into a generalized T
+  template parameter after you have 2 (or preferably 3) different types to use
+  when instantiating.  Use the concepts language feature as soon as possible
+  to check constraints on T.  The constraints always exist, even if you don't
+  use concepts, so use concepts to catch problems as early as possible.
 
         </script>
       </section>
