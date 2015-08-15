@@ -604,13 +604,14 @@ global state.
 - Avoid Aliasing
 
 What is the common through-line in all of those?
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 Your code must be easy to reason about to be usable.
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 These are not actually separate topics, but different aspects of the same
 principle.
-<!-- .element: class="fragment" data-fragment-index="2" -->
+<!-- .element: class="fragment" data-fragment-index="3" -->
 
 ====================
 
@@ -634,20 +635,36 @@ Regular means:
 <!-- .element: class="fragment" data-fragment-index="1" -->
 - Copyable
 <!-- .element: class="fragment" data-fragment-index="2" -->
-- Movable
-<!-- .element: class="fragment" data-fragment-index="3" -->
 - Assignable
+<!-- .element: class="fragment" data-fragment-index="3" -->
+- Movable
 <!-- .element: class="fragment" data-fragment-index="4" -->
 - Destructible
 <!-- .element: class="fragment" data-fragment-index="5" -->
 - Equality-comparable
 <!-- .element: class="fragment" data-fragment-index="6" -->
 
+Copy and assignment must not create aliases for a type to be regular.
+<!-- .element: class="fragment" data-fragment-index="7" -->
+
+Semiregular is often useful too.
+<!-- .element: class="fragment" data-fragment-index="8" -->
+
+----
+
+Think of "Regular" as "like a number".
+
+Numbers are way easier to reason about than most C++ classes.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
 ----
 
 ###Functions should be pure
 
 Pure functions have no side effects (and therefore no aliasing).
+
+Remember our friend xor_swap().
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
@@ -663,33 +680,63 @@ basis.
 
 ----
 
-Now to justify those assertions ..
+Why don't we have std::vector<T>::sort()?
+
+Because that would be stupid.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+We don't want a different sort() for each container type, right?
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 
-STL is M+N instead of M*N.  That's great once it's explained to you.  How do
-you get there as-you-go when implementing your own solution?  A: Don't ever,
-ever add things to your types' bases that can be done in terms of the existing
-basis.  This will allow you to generalize (and often force you to think about
-it).
+Don't add things to your types' bases that can be done in terms of the
+existing basis.
+
+This will allow you to generalize (and often force you to think about
+generalizing).
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+See std::string for a counterexample of defining a basis.
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 
-interoperable with STL algorithms and in range-based for loops, if
-appropriate
+Make your container types interoperable with STL algorithms.
+
+If this requires custom iterators, get to know the Boost.Iterator library.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-usable in a container or a subobject
+Make your container types in usable range-based for loops.
+
+This takes surprisingly little effort.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-usable anywhere (heap, stack, static storage, constant expressions)
+Make your types usable in a container or a subobject.
+
+Regularity helps a lot with this.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
-Error messages *must* be usable, or your library is not.  See Boost.Graph or
-Boost.Spirit vs. Range v3.
+Make your types usable anywhere (heap, stack, static storage, constant
+expressions) whenever possible.
+
+----
+
+Error messages (even compiler error messages) must be usable, or your library
+is not.
+
+See Boost.Graph or Boost.Spirit for hard-to-read error messages, due to deep
+template instantiation depths.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Come up with a good convention for reporting compile errors to the user.
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ====================
 
