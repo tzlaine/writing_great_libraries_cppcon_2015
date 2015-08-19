@@ -5,22 +5,22 @@ struct X { /*...*/ };
 
 int num_xs ();
 
-const X* get_x (int i);
+const X * get_x (int i);
 // end-sample
 
 int num_xs ()
 { return 0; }
 
-const X* get_x (int i)
+const X * get_x (int i)
 { return nullptr; }
 
 void remove_x (int i)
 {}
 
-void use(const X*)
+void use(const X *)
 {
 }
-void use(const X&)
+void use(const X &)
 {
 }
 
@@ -64,7 +64,7 @@ int main()
 // sample(c_range_usage_1)
 const int num = num_xs();
 for (int i = 0; i < num; ++i) {
-    const X* x = get_x(i);
+    const X * x = get_x(i);
     use(x);
 }
 // end-sample
@@ -76,7 +76,7 @@ int num = num_xs();
 // some code to here change num,
 // in order to take a subset of num_xs() ...
 for (int i = 0; i < num; ++i) {
-    const X* x = get_x(i);
+    const X * x = get_x(i);
     use(x);
 }
 // end-sample
@@ -88,7 +88,7 @@ int num = num_xs();
 // Fiery explosion when i == num - 1.
 // If we're lucky.
 for (int i = 0; i < num; ++i) {
-    const X* x = get_x(i);
+    const X * x = get_x(i);
     if (i == some_index())
         remove_x(i);
     use(x);

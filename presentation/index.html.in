@@ -234,7 +234,7 @@ Your code needs to be efficient, under all reasonably forseeable usage scenarios
 To get there, constantly ask "what if ...".
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-Don't be stupid.
+Don't get stupid.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ====================
@@ -498,7 +498,13 @@ Semiregular is often useful too.
 Think of "Regular" as "like a number".
 
 Numbers are way easier to reason about than most C++ classes.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Better yet, think of "Regular" as "like a banana".
 <!-- .element: class="fragment" data-fragment-index="2" -->
+
+Bananas are even easier to reason about than numbers.
+<!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
@@ -552,22 +558,36 @@ If this requires custom iterators, get to know the Boost.Iterator library.
 
 ----
 
+%%iterator_facade%%
+
+----
+
 Make your container types in usable range-based for loops.
 
 This takes surprisingly little effort.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+%%range_based_for_adapter%%
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
 Make your types usable in a container or a subobject.
 
-Regularity helps a lot with this.
+If I can't use your type in a std::vector, your type is not very reusable.
 <!-- .element: class="fragment" data-fragment-index="1" -->
+
+Regularity helps a lot with this.
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 
 Make your types usable anywhere (heap, stack, static storage, constant
 expressions) whenever possible.
+
+A type that downloads data from the internet in its constructor is not
+ROM-able.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
@@ -588,23 +608,90 @@ Come up with a good convention for reporting compile errors to the user.
 
 ----
 
-* look at lots of other library interfaces, take notes
-* think of this process as discovering correct solutions, not inventing them;
-  if you try something and it doesn't work or has notable warts, keep
-  searching
-* implementation *is* design -- try to use your code as you go, and refine
-  (sand off rough corners); this is an iterative endeavor
-* documentation is important to users, and also very, very, useful to the
-  design process
-* anticipate future need, but don't *over* generalize
-* header-only vs. compiled (try .ipp pattern for FOSS projects)
-* inline namespaces
-* implement functions and types that seem like they should be generic with a
-  concrete type first, then lift the concrete type into a generalized T
-  template parameter after you have 2 (or preferably 3) different types to use
-  when instantiating.  Use the concepts language feature as soon as possible
-  to check constraints on T.  The constraints always exist, even if you don't
-  use concepts, so use concepts to catch problems as early as possible.
+###Nearly Uselessly General Advice:
+
+Look at lots of other library interfaces.  Find what works.
+
+----
+
+###Implementation Is Design
+
+There is no difference to a programmer.
+
+Use your code as you go, and refine ("sand off rough corners").
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+This is an iterative endeavor.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Writing tests as you go can really help with this.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+Consider starting with the code you want, long before it compiles, and trying
+to implement the library around that.
+<!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+Think of this process as discovering correct solutions, not inventing them.
+
+If you try something and it doesn't work or has notable warts, keep searching.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+Documentation is important to users; without proper docs, many useful
+libraries would not be.
+
+Docs are also very, very, useful to the design process.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+Anticipate future needs.
+
+Don't get stupid.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+###Header-only vs. Compiled
+
+Header-only libraries are potentially usable in minutes, which makes them
+compelling.
+
+Compiled libraries don't require recompilation.  This makes them compelling
+for a different reason.
+
+If these issues are very important to you or your users, try using ".ipp"
+files for implementation, providing header-only and compiled versions of the
+same code, and let the user pick with a macro.
+
+----
+
+Understand how inline namespaces work, and use them.
+
+----
+
+###Generic Code
+
+Implement functions and types that seem like they should be generic with a
+concrete type first (say, int).
+
+Lift the concrete type into a generalized template parameter T after you have
+2 or 3 different types to use when instantiating.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+All templates are constrained by concepts, even without the concept language
+feature.
+
+If you have the concepts language feature, use it liberally.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+If you do not, you must document the constraints.
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
         </script>
       </section>
