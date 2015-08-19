@@ -672,6 +672,18 @@ Pure functions have no side effects (and therefore no aliasing).
 Remember our friend xor_swap().
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
+What are your concerns about this function call?
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+```cpp
+int i = 2;
+auto result = bar(foo(i), foo(i));
+```
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+There are no concerns if bar() is pure.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
 ----
 
 ###Types should define a basis
@@ -801,6 +813,21 @@ Come up with a good convention for reporting compile errors to the user.
 
 ====================
 
+## A Note About the Previous Use of "Should"
+
+----
+
+You are not wrong to use non-regular types, impure functions, etc.
+
+Always reach first for the kind of code you want to read, write, and reason
+about.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Get as close to that as you can.  Diverge from that if you have to.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+====================
+
 # Part 4
 ## Library Implementation Tips
 
@@ -882,8 +909,8 @@ Lift the concrete type into a generalized template parameter T after you have
 
 ----
 
-All templates are constrained by concepts, even without the concept language
-feature.
+All templates are constrained by concepts, even if only implicitly, without
+the concept language feature.
 
 If you have the concepts language feature, use it liberally.
 <!-- .element: class="fragment" data-fragment-index="1" -->
