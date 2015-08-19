@@ -3,7 +3,7 @@
 
 // sample(unexpected_delete)
 struct X
-{/*...*/};
+{ /*...*/ };
 
 void RegisterX(X const * x);
 // end-sample
@@ -12,7 +12,7 @@ int main()
 {
 
 // sample(unexpected_delete)
-X * x = new X{/*...*/};
+X * x = new X{ /*...*/ };
 RegisterX(x);
 // end-sample
 

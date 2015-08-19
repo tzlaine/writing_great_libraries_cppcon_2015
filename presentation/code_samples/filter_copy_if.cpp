@@ -17,7 +17,7 @@ int main()
 {
 
 // sample(filter)
-std::vector<X> xs = {/*...*/};
+std::vector<X> xs = { /*...*/ };
 std::vector<X> selected_xs;
 
 filter(
