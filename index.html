@@ -865,6 +865,28 @@ If you try something and it doesn't work or has notable warts, keep searching.
 
 ----
 
+###An Example:
+
+A linear algebra library.
+
+```cpp
+matrix_t saxpy (double a, matrix_t const & x, matrix_t const & y);
+auto z = saxpy(a, x, y); // Wha?
+```
+
+```cpp
+matrix_t operator* (double a, matrix_t const & x);
+matrix_t operator+ (matrix_t const & x, matrix_t const & y);
+auto z = a * x + y; // Now this I get.
+```
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+We probably need to use expression templates to get rid of the temporaries
+again.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
 Documentation is important to users; without proper docs, many useful
 libraries would not be.
 
@@ -912,11 +934,33 @@ Lift the concrete type into a generalized template parameter T after you have
 All templates are constrained by concepts, even if only implicitly, without
 the concept language feature.
 
-If you have the concepts language feature, use it liberally.
+If you see this in the documentation:
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-If you do not, you must document the constraints.
+```cpp
+template <typename T>
+void some_function (T a, T b);
+```
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+That leaves out the requirement that T be defined for operator+():
 <!-- .element: class="fragment" data-fragment-index="2" -->
+
+```cpp
+template <typename T>
+void some_function (T a, T b)
+{
+    auto c = a + b;
+    print(c);
+}
+```
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+If you have the concepts language feature, use it liberally.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+If you do not, you must document the constraints.
+<!-- .element: class="fragment" data-fragment-index="4" -->
 
         </script>
       </section>
