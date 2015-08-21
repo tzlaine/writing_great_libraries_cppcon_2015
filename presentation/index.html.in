@@ -591,7 +591,7 @@ Regularity helps a lot with this.
 
 ----
 
-Make your types usable anywhere (heap, stack, static storage, constant
+Make your types constructible anywhere (heap, stack, static storage, constant
 expressions) whenever possible.
 
 A type that downloads data from the internet in its constructor is not
@@ -607,7 +607,7 @@ See Boost.Graph or Boost.Spirit for hard-to-read error messages, due to deep
 template instantiation depths.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-Come up with a good convention for reporting compile errors to the user.
+Come up with a good convention for reporting compilation errors to the user.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ====================
@@ -622,7 +622,7 @@ Always reach first for the kind of code you want to read, write, and reason
 about.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-Get as close to that as you can.  Diverge from that if you have to.
+Get as close to that as you can.  Diverge from that only if you have to.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ====================
@@ -733,6 +733,18 @@ Lift the concrete type into a generalized template parameter T after you have
 2 or 3 different types to use when instantiating.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
+Start with this:
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+%%right_generic_start%%
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Before this:
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+%%wrong_generic_start%%
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
 ----
 
 All templates are constrained by concepts, even if only implicitly, without
@@ -756,7 +768,68 @@ If you have the concepts language feature, use it liberally.
 If you do not, you must document the constraints.
 <!-- .element: class="fragment" data-fragment-index="4" -->
 
-        </script>
+====================
+
+### To Summarize
+
+----
+
+### Motivation
+
+### Principle 0: We write libraries for code reuse.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+### Principle 1: Libraries must be maxmially efficient.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+### Principle 2: Libraries must be maxmially usable.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+### Practice
+
+### The Principle: Your library API must be easy to reason about.
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Guideline 1: Names are important.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Guideline 2: Don't violate The Principle of Least Surprise.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+Guideline 3: Make interfaces impossible to use incorrectly.
+<!-- .element: class="fragment" data-fragment-index="4" -->
+
+Guideline 4: Avoid aliasing.
+<!-- .element: class="fragment" data-fragment-index="5" -->
+
+Guideline 5: Types should be regular, functions pure, and types should
+define a basis and no more.
+<!-- .element: class="fragment" data-fragment-index="6" -->
+
+----
+
+Guideline 6: Container types should be interoperable with STL algorithms,
+and usable in range-based for loops.
+<!-- .element: class="fragment" data-fragment-index="7" -->
+
+Guideline 7: Types should be usable in a container or subobject.
+<!-- .element: class="fragment" data-fragment-index="8" -->
+
+Guideline 8: Types should be constructible anywhere.
+<!-- .element: class="fragment" data-fragment-index="9" -->
+
+Guideline 9: Error message must not impede use of your library.
+<!-- .element: class="fragment" data-fragment-index="10" -->
+
+Guideline 10: Don't slavishly follow these guidelines.
+<!-- .element: class="fragment" data-fragment-index="11" -->
+
+----
+
+## Questions?
+       </script>
       </section>
     </div>
   </div>
