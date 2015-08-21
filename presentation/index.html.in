@@ -698,13 +698,25 @@ Don't get stupid.
 
 Header-only libraries are potentially usable in minutes, which makes them
 compelling.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 Compiled libraries don't require recompilation.  This makes them compelling
 for a different reason.
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
-If these issues are very important to you or your users, try using ".ipp"
-files for implementation, providing header-only and compiled versions of the
-same code, and let the user pick with a macro.
+If these issues are very important to you or your users, try the ".ipp"
+pattern.
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+%%ipp_pattern_header%%
+
+%%ipp_pattern_impl%%
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+%%ipp_pattern_ipp%%
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 

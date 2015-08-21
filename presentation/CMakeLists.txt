@@ -1,7 +1,7 @@
 add_subdirectory(code_samples)
 add_subdirectory(code_sampler)
 
-file(GLOB filenames ${CMAKE_CURRENT_SOURCE_DIR}/code_samples/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/code_samples/*.hpp)
+file(GLOB filenames ${CMAKE_CURRENT_SOURCE_DIR}/code_samples/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/code_samples/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/code_samples/*.ipp)
 
 add_custom_command(
     OUTPUT
