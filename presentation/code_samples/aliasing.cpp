@@ -70,6 +70,7 @@ std::pair<S *, unsigned int *> make_s_with_index ()
 {
     std::pair<S *, unsigned int *> retval{new S, nullptr};
     retval.second = get_index(*retval.first);
+    return retval;
 }
 // end-sample
 }
@@ -94,6 +95,7 @@ std::pair<S, unsigned int *> make_s_with_index ()
 {
     std::pair<S, unsigned int *> retval{S(), nullptr};
     retval.second = get_index(retval.first);
+    return retval;
 }
 // end-sample
 }
