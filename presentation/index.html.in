@@ -521,7 +521,7 @@ What are your concerns about this function call?
 %%parameter_evaluation_order%%
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-There are no concerns if bar() is pure.
+There are no concerns if foo() and bar() are pure.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
@@ -560,7 +560,7 @@ See std::string for a counterexample of defining a basis.
 
 ----
 
-Make your container types interoperable with STL algorithms.
+Container types should be interoperable with STL algorithms.
 
 If this requires custom iterators, get to know the Boost.Iterator library.
 <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -571,7 +571,7 @@ If this requires custom iterators, get to know the Boost.Iterator library.
 
 ----
 
-Make your container types in usable range-based for loops.
+Container types should be in usable range-based for loops.
 
 This takes surprisingly little effort.
 <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -581,7 +581,7 @@ This takes surprisingly little effort.
 
 ----
 
-Make your types usable in a container or a subobject.
+Library types should be usable in a container or a subobject.
 
 If I can't use your type in a std::vector, your type is not very reusable.
 <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -591,8 +591,8 @@ Regularity helps a lot with this.
 
 ----
 
-Make your types constructible anywhere (heap, stack, static storage, constant
-expressions) whenever possible.
+Library types shuld be constructible anywhere (heap, stack, static storage,
+constant expressions) whenever possible.
 
 A type that downloads data from the internet in its constructor is not
 ROM-able.
@@ -629,12 +629,6 @@ Get as close to that as you can.  Diverge from that only if you have to.
 
 # Part 4
 ## Library Implementation Tips
-
-----
-
-###Nearly Uselessly General Advice:
-
-Look at lots of other library interfaces.  Find what works.
 
 ----
 
@@ -726,47 +720,27 @@ Understand how inline namespaces work, and use them.
 
 ###Generic Code
 
-Implement functions and types that seem like they should be generic with a
-concrete type first (say, int).
-
-Lift the concrete type into a generalized template parameter T after you have
-2 or 3 different types to use when instantiating.
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-Start with this:
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
-%%right_generic_start%%
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
-Before this:
-<!-- .element: class="fragment" data-fragment-index="3" -->
-
-%%wrong_generic_start%%
-<!-- .element: class="fragment" data-fragment-index="3" -->
-
-----
-
 All templates are constrained by concepts, even if only implicitly, without
 the concept language feature.
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 If you see this in the documentation:
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 %%template_decl%%
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 That leaves out the requirement that T be defined for operator+():
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
-%%template_def%%
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
-If you have the concepts language feature, use it liberally.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
-If you do not, you must document the constraints.
+%%template_def%%
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+If you have the concepts language feature, use it liberally.
 <!-- .element: class="fragment" data-fragment-index="4" -->
+
+If you do not, you must document the constraints.
+<!-- .element: class="fragment" data-fragment-index="5" -->
 
 ====================
 
