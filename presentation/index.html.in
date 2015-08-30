@@ -115,8 +115,6 @@ It also implies maximal reusability, for the same reason.
 There are two audiences you are writing for when you write code: human readers
 and the compiler.  You have to make your code easy to reason about for *both*
 audiences as a library writer.
-
-Messy implementation details need to be isolated from the public interface.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
@@ -220,9 +218,6 @@ Better still is a lazy range:
 
 This still doesn't handle unbounded ranges, but it could if you changed the
 iterators to input iterators.
-
-This gives up the copyability properties, though.
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 

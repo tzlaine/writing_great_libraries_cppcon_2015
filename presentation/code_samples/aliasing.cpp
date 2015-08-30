@@ -57,12 +57,12 @@ struct Base { /*...*/ };
 
 struct S : Base { /*...*/ };
 
-unsigned int * get_index (Base & b);
+unsigned int * get_index (const Base & b);
 
 std::pair<S *, unsigned int *> make_s_with_index ();
 // end-sample
 
-unsigned int * get_index (Base & b)
+unsigned int * get_index (const Base & b)
 { return nullptr; }
 
 // sample(possible_unclear_make_s_with_index_impl)
@@ -81,13 +81,13 @@ struct Base { /*...*/ };
 
 struct S : Base { /*...*/ };
 
-unsigned int * get_index (Base & b);
+unsigned int * get_index (const Base & b);
 
 // We could also use std::unique_ptr<S> here.
 std::pair<S, unsigned int *> make_s_with_index ();
 // end-sample
 
-unsigned int * get_index (Base & b)
+unsigned int * get_index (const Base & b)
 { return nullptr; }
 
 // sample(possible_clearer_make_s_with_index_impl)

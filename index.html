@@ -129,8 +129,6 @@ It also implies maximal reusability, for the same reason.
 There are two audiences you are writing for when you write code: human readers
 and the compiler.  You have to make your code easy to reason about for *both*
 audiences as a library writer.
-
-Messy implementation details need to be isolated from the public interface.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
@@ -274,9 +272,6 @@ std::copy(begin(range), end(range), copy_of_xs.begin());
 
 This still doesn't handle unbounded ranges, but it could if you changed the
 iterators to input iterators.
-
-This gives up the copyability properties, though.
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
@@ -527,7 +522,7 @@ struct Base { /*...*/ };
 
 struct S : Base { /*...*/ };
 
-unsigned int * get_index (Base & b);
+unsigned int * get_index (const Base & b);
 
 std::pair<S *, unsigned int *> make_s_with_index ();
 ```
@@ -568,7 +563,7 @@ struct Base { /*...*/ };
 
 struct S : Base { /*...*/ };
 
-unsigned int * get_index (Base & b);
+unsigned int * get_index (const Base & b);
 
 // We could also use std::unique_ptr<S> here.
 std::pair<S, unsigned int *> make_s_with_index ();
