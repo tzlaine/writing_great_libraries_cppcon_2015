@@ -176,9 +176,9 @@ The C way:
 
 This interface requires:
 
-- Checking of the parameter to `get_x()` in library code (N*2 branches).
-- Checking the result of `get_x()` in user code (N branches).
-- N+1 function calls.
+- Checking of the parameter to `get_x()` in library code (O(N) branches).
+- Checking the result of `get_x()` in user code.
+- O(N) function calls.
 
 ----
 

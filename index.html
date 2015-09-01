@@ -202,9 +202,9 @@ for (int i = 0; i < num; ++i) {
 
 This interface requires:
 
-- Checking of the parameter to `get_x()` in library code (N*2 branches).
-- Checking the result of `get_x()` in user code (N branches).
-- N+1 function calls.
+- Checking of the parameter to `get_x()` in library code (O(N) branches).
+- Checking the result of `get_x()` in user code.
+- O(N) function calls.
 
 ----
 
@@ -524,7 +524,7 @@ struct S : Base { /*...*/ };
 
 unsigned int * get_index (const Base & b);
 
-std::pair<S *, unsigned int *> make_s_with_index ();
+std::pair<S *, unsigned int *> new_s_with_index ();
 ```
 
 As a user of make_s_with_index() who does not have access to the
@@ -536,7 +536,7 @@ implementation, what are your questions about how it behaves?
 Possible implementation:
 
 ```cpp
-std::pair<S *, unsigned int *> make_s_with_index ()
+std::pair<S *, unsigned int *> new_s_with_index ()
 {
     std::pair<S *, unsigned int *> retval{new S, nullptr};
     retval.second = get_index(*retval.first);
@@ -566,7 +566,7 @@ struct S : Base { /*...*/ };
 unsigned int * get_index (const Base & b);
 
 // We could also use std::unique_ptr<S> here.
-std::pair<S, unsigned int *> make_s_with_index ();
+std::pair<S, unsigned int *> new_s_with_index ();
 ```
 
 I no longer have any of those questions from before.  From the interface alone, I know the answers:
