@@ -113,7 +113,7 @@ It also implies maximal usability, for the same reason.
 ----
 
 There are two audiences you are writing for when you write code: human readers
-and the compiler.  You have to make your code easy to reason about for *both*
+and the compiler.  You have to make your code easy to reason about for both
 audiences as a library writer.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
