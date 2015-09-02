@@ -124,10 +124,10 @@ audiences as a library writer.
 ### Principle 0: We write libraries for code reuse.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-### Principle 1: Libraries must be maxmially efficient (see Principle 0).
+### Principle 1: Libraries must be maximally efficient (see Principle 0).
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-### Principle 2: Libraries must be maxmially usable (see Principle 0).
+### Principle 2: Libraries must be maximally usable (see Principle 0).
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ====================
@@ -748,10 +748,10 @@ If you do not, you must document the constraints.
 ### Principle 0: We write libraries for code reuse.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-### Principle 1: Libraries must be maxmially efficient.
+### Principle 1: Libraries must be maximally efficient.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-### Principle 2: Libraries must be maxmially usable.
+### Principle 2: Libraries must be maximally usable.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
