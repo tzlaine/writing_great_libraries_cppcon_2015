@@ -65,7 +65,7 @@ std::pair<S *, unsigned int *> new_s_with_index ();
 unsigned int * get_index (const Base & b)
 { return nullptr; }
 
-// sample(possible_unclear_make_s_with_index_impl)
+// sample(possible_unclear_new_s_with_index_impl)
 std::pair<S *, unsigned int *> new_s_with_index ()
 {
     std::pair<S *, unsigned int *> retval{new S, nullptr};
@@ -90,7 +90,7 @@ std::pair<S, unsigned int *> new_s_with_index ();
 unsigned int * get_index (const Base & b)
 { return nullptr; }
 
-// sample(possible_clearer_make_s_with_index_impl)
+// sample(possible_clearer_new_s_with_index_impl)
 std::pair<S, unsigned int *> new_s_with_index ()
 {
     std::pair<S, unsigned int *> retval{S(), nullptr};
