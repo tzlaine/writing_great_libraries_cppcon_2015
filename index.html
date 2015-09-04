@@ -867,13 +867,14 @@ A linear algebra library.
 matrix_t saxpy (double a, matrix_t const & x, matrix_t const & y);
 auto z = saxpy(a, x, y); // Wha?
 ```
+<!-- .element: style="font-size: 0.6em;" -->
 
 ```cpp
 matrix_t operator* (double a, matrix_t const & x);
 matrix_t operator+ (matrix_t const & x, matrix_t const & y);
 auto z = a * x + y; // Now this I get.
 ```
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="1" style="font-size: 0.6em;" -->
 
 We probably need to use expression templates to get rid of the temporaries
 again.

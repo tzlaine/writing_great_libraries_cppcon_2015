@@ -656,9 +656,10 @@ If you try something and it doesn't work or has notable warts, keep searching.
 A linear algebra library.
 
 %%bad_matrix_interface%%
+<!-- .element: style="font-size: 0.6em;" -->
 
 %%good_matrix_interface%%
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="1" style="font-size: 0.6em;" -->
 
 We probably need to use expression templates to get rid of the temporaries
 again.
