@@ -223,10 +223,10 @@ iterators to input iterators.
 
 ### Efficiency Guidelines
 
-Your code needs to be efficient, under all reasonably forseeable usage scenarios.
+Your API needs to be efficient, under all reasonably forseeable usage scenarios.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-To get there, constantly ask "what if ...".
+To get there, constantly ask "what if I used the API like this ...".
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 Don't get crazy.
@@ -638,8 +638,8 @@ This is an iterative endeavor.
 Writing tests as you go can really help with this.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
-Consider starting with the code you want, long before it compiles, and trying
-to implement the library around that.
+Consider starting with the client code you want, long before it compiles, and
+trying to implement the library around that.
 <!-- .element: class="fragment" data-fragment-index="4" -->
 
 ----
