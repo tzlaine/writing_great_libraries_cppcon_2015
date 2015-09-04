@@ -255,9 +255,6 @@ What does this do?
 Does it filter in or filter out?
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-Go find out!  I'll wait....
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
 ----
 
 %%copy_if%%
@@ -362,11 +359,11 @@ Having to consider such things as identity is pretty bad too.
 
 This is better.
 
+----
+
 %%ok_xor_swap%%
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 So is this.
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
@@ -563,6 +560,7 @@ If this requires custom iterators, get to know the Boost.Iterator library.
 ----
 
 %%iterator_facade%%
+<!-- .element: style="font-size: 0.55em" -->
 
 ----
 
@@ -572,7 +570,7 @@ This takes surprisingly little effort.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 %%range_based_for_adapter%%
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="1" style="font-size: 0.6em" -->
 
 ----
 
@@ -725,17 +723,22 @@ If you see this in the documentation:
 %%template_decl%%
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-That leaves out the requirement that T be defined for operator+():
+That leaves out the requirement that T be defined for
+<!-- .element: class="fragment" data-fragment-index="3" -->
+<br>operator+():
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 %%template_def%%
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
+----
+
+%%constrained_template_decl%%
+
 If you have the concepts language feature, use it liberally.
-<!-- .element: class="fragment" data-fragment-index="4" -->
 
 If you do not, you must document the constraints.
-<!-- .element: class="fragment" data-fragment-index="5" -->
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ====================
 

@@ -59,17 +59,21 @@ struct S : Base { /*...*/ };
 
 unsigned int * get_index (const Base & b);
 
-std::pair<S *, unsigned int *> new_s_with_index ();
+std::pair<S *, unsigned int *>
+new_s_with_index ();
 // end-sample
 
 unsigned int * get_index (const Base & b)
 { return nullptr; }
 
 // sample(possible_unclear_new_s_with_index_impl)
-std::pair<S *, unsigned int *> new_s_with_index ()
+std::pair<S *, unsigned int *>
+new_s_with_index ()
 {
-    std::pair<S *, unsigned int *> retval{new S, nullptr};
-    retval.second = get_index(*retval.first);
+    std::pair<S *, unsigned int *>
+        retval{new S, nullptr};
+    retval.second =
+        get_index(*retval.first);
     return retval;
 }
 // end-sample
@@ -84,17 +88,21 @@ struct S : Base { /*...*/ };
 unsigned int * get_index (const Base & b);
 
 // We could also use std::unique_ptr<S> here.
-std::pair<S, unsigned int *> new_s_with_index ();
+std::pair<S, unsigned int *>
+new_s_with_index ();
 // end-sample
 
 unsigned int * get_index (const Base & b)
 { return nullptr; }
 
 // sample(possible_clearer_new_s_with_index_impl)
-std::pair<S, unsigned int *> new_s_with_index ()
+std::pair<S, unsigned int *>
+new_s_with_index ()
 {
-    std::pair<S, unsigned int *> retval{S(), nullptr};
-    retval.second = get_index(retval.first);
+    std::pair<S, unsigned int *>
+        retval{S(), nullptr};
+    retval.second =
+        get_index(retval.first);
     return retval;
 }
 // end-sample

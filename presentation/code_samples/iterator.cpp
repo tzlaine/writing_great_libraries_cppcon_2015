@@ -3,21 +3,22 @@
 
 struct node_base { /*...*/ };
 
-struct node_iterator :
+struct node_iter :
     public boost::iterator_facade<
-        node_iterator,
+        node_iter,
         node_base,
         boost::forward_traversal_tag
     >
 {
-    node_iterator();
-    explicit node_iterator(node_base * p);
+    node_iter();
+    explicit node_iter(node_base * p);
 
  private:
-    friend class boost::iterator_core_access;
+    friend
+        class boost::iterator_core_access;
 
     void increment();
-    bool equal(node_iterator const & other) const;
+    bool equal(node_iter const & it) const;
     node_base & dereference() const;
 
     node_base * m_node;
@@ -29,8 +30,8 @@ int main()
     return 0;
 }
 
-node_iterator::node_iterator() : m_node(0) {}
-node_iterator::node_iterator(node_base * p) : m_node(p) {}
-void node_iterator::increment() {}
-bool node_iterator::equal(node_iterator const & other) const { return false; }
-node_base & node_iterator::dereference() const { return *m_node; }
+node_iter::node_iter() : m_node(0) {}
+node_iter::node_iter(node_base * p) : m_node(p) {}
+void node_iter::increment() {}
+bool node_iter::equal(node_iter const & it) const { return false; }
+node_base & node_iter::dereference() const { return *m_node; }

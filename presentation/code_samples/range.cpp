@@ -33,7 +33,8 @@ std::vector<X> get_xs ();
 // sample(c++_lazy_range_interface)
 struct x_range {
     // iterator into our internal storage
-    using iterator = std::vector<X>::const_iterator;
+    using iterator =
+        std::vector<X>::const_iterator;
     iterator first, last;
 };
 
@@ -43,9 +44,11 @@ x_range::iterator begin (x_range r)
 x_range::iterator end (x_range r)
 { return r.last; }
 
+// end-sample
 std::size_t size (x_range r)
 { return end(r) - begin(r); }
 
+// sample(c++_lazy_range_interface)
 x_range get_xs ();
 // end-sample
 
@@ -105,7 +108,9 @@ for (auto const & x : range) {
 
 // This will use memcpy for PODs, etc.
 std::vector<X> copy_of_xs(size(range));
-std::copy(begin(range), end(range), copy_of_xs.begin());
+std::copy(begin(range),
+          end(range),
+          copy_of_xs.begin());
 // end-sample
 }
     return 0;

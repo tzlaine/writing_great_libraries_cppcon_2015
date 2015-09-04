@@ -15,6 +15,13 @@ void some_function (T a, T b)
 }
 // end-sample
 
+#if 0
+// sample(constrained_template_decl)
+template <Arithmetic T>
+void some_function (T a, T b);
+// end-sample
+#endif
+
 int main ()
 {
     int a = 1, b = 2;

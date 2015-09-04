@@ -23,7 +23,7 @@ RegisterX(x);
 void RegisterX(X const * x)
 {
     if (x) {
-        // Some stuff that "registers" x here...
+        // Some stuff that "registers" x...
     }
     delete x; // WTF
 }

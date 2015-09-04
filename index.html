@@ -239,7 +239,8 @@ Better still is a lazy range:
 ```cpp
 struct x_range {
     // iterator into our internal storage
-    using iterator = std::vector<X>::const_iterator;
+    using iterator =
+        std::vector<X>::const_iterator;
     iterator first, last;
 };
 
@@ -248,9 +249,6 @@ x_range::iterator begin (x_range r)
 
 x_range::iterator end (x_range r)
 { return r.last; }
-
-std::size_t size (x_range r)
-{ return end(r) - begin(r); }
 
 x_range get_xs ();
 ```
@@ -265,7 +263,9 @@ for (auto const & x : range) {
 
 // This will use memcpy for PODs, etc.
 std::vector<X> copy_of_xs(size(range));
-std::copy(begin(range), end(range), copy_of_xs.begin());
+std::copy(begin(range),
+          end(range),
+          copy_of_xs.begin());
 ```
 
 ----
@@ -324,9 +324,6 @@ What does this do?
 Does it filter in or filter out?
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-Go find out!  I'll wait....
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
 ----
 
 ```cpp
@@ -374,7 +371,7 @@ This looks pretty clear, right?
 void RegisterX(X const * x)
 {
     if (x) {
-        // Some stuff that "registers" x here...
+        // Some stuff that "registers" x...
     }
     delete x; // WTF
 }
@@ -488,6 +485,8 @@ void xor_swap (int & a_, int & b_)
 
 This is better.
 
+----
+
 ```cpp
 std::pair<int, int> xor_swap (int a, int b)
 {
@@ -497,10 +496,8 @@ std::pair<int, int> xor_swap (int a, int b)
     return std::make_pair(a, b);
 }
 ```
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 So is this.
-<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
@@ -524,7 +521,8 @@ struct S : Base { /*...*/ };
 
 unsigned int * get_index (const Base & b);
 
-std::pair<S *, unsigned int *> new_s_with_index ();
+std::pair<S *, unsigned int *>
+new_s_with_index ();
 ```
 
 As a user of new_s_with_index() who does not have access to the
@@ -536,10 +534,13 @@ implementation, what are your questions about how it behaves?
 Possible implementation:
 
 ```cpp
-std::pair<S *, unsigned int *> new_s_with_index ()
+std::pair<S *, unsigned int *>
+new_s_with_index ()
 {
-    std::pair<S *, unsigned int *> retval{new S, nullptr};
-    retval.second = get_index(*retval.first);
+    std::pair<S *, unsigned int *>
+        retval{new S, nullptr};
+    retval.second =
+        get_index(*retval.first);
     return retval;
 }
 ```
@@ -566,7 +567,8 @@ struct S : Base { /*...*/ };
 unsigned int * get_index (const Base & b);
 
 // We could also use std::unique_ptr<S> here.
-std::pair<S, unsigned int *> new_s_with_index ();
+std::pair<S, unsigned int *>
+new_s_with_index ();
 ```
 
 I no longer have any of those questions from before.  From the interface alone, I know the answers:
@@ -728,26 +730,28 @@ If this requires custom iterators, get to know the Boost.Iterator library.
 
 struct node_base { /*...*/ };
 
-struct node_iterator :
+struct node_iter :
     public boost::iterator_facade<
-        node_iterator,
+        node_iter,
         node_base,
         boost::forward_traversal_tag
     >
 {
-    node_iterator();
-    explicit node_iterator(node_base * p);
+    node_iter();
+    explicit node_iter(node_base * p);
 
  private:
-    friend class boost::iterator_core_access;
+    friend
+        class boost::iterator_core_access;
 
     void increment();
-    bool equal(node_iterator const & other) const;
+    bool equal(node_iter const & it) const;
     node_base & dereference() const;
 
     node_base * m_node;
 };
 ```
+<!-- .element: style="font-size: 0.55em" -->
 
 ----
 
@@ -774,7 +778,7 @@ for (auto value : array) {
     // whatever
 }
 ```
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="1" style="font-size: 0.6em" -->
 
 ----
 
@@ -957,7 +961,9 @@ void some_function (T a, T b);
 ```
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-That leaves out the requirement that T be defined for operator+():
+That leaves out the requirement that T be defined for
+<!-- .element: class="fragment" data-fragment-index="3" -->
+<br>operator+():
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ```cpp
@@ -970,11 +976,17 @@ void some_function (T a, T b)
 ```
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
+----
+
+```cpp
+template <Arithmetic T>
+void some_function (T a, T b);
+```
+
 If you have the concepts language feature, use it liberally.
-<!-- .element: class="fragment" data-fragment-index="4" -->
 
 If you do not, you must document the constraints.
-<!-- .element: class="fragment" data-fragment-index="5" -->
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ====================
 
