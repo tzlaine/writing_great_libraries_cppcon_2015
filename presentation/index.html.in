@@ -792,7 +792,7 @@ Guideline 7: Types should be usable in a container or subobject.
 Guideline 8: Types should be constructible anywhere.
 <!-- .element: class="fragment" data-fragment-index="9" -->
 
-Guideline 9: Error message must not impede use of your library.
+Guideline 9: Error messages must not impede use of your library.
 <!-- .element: class="fragment" data-fragment-index="10" -->
 
 Guideline 10: Don't slavishly follow these guidelines.
