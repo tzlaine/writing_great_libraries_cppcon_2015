@@ -676,8 +676,14 @@ Docs are also very, very, useful to the design process.
 
 Anticipate future needs.
 
-Don't get crazy.
+Like thread safety.
 <!-- .element: class="fragment" data-fragment-index="1" -->
+
+Like versioning.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Don't get crazy with the features.
+<!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
