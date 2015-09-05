@@ -179,7 +179,7 @@ How do we do this, when we don't know the usage context?
 
 ### An Example: Getting a sequence of things
 
-The C way:
+A bad way:
 
 ```cpp
 struct X { /*...*/ };
@@ -215,13 +215,25 @@ We would like:
 
 ----
 
-Maybe this is better?
+The C way:
 
 ```cpp
-std::vector<X> get_xs ();
+int num_xs ();
+
+void get_xs (X** xs);
 ```
 
-A bit, yes.  We only need to call one function, and there are no more
+```cpp
+const int num = num_xs();
+std::vector<X*> xs(num);
+get_xs(&xs[0]);
+for (auto x : xs) {
+    use(x);
+}
+```
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+A bit better.  We only need to call two API functions, and there are no more
 per-element branches.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -229,12 +241,12 @@ However, do we really need to allocate memory?  Maybe the user just needs to
 see each element, not copy it.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-Also, what happens if the range has no bound?
+Also, what happens if the sequence has an unknown size?
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
-Better still is a lazy range:
+Better would be a lazy range:
 
 ```cpp
 struct x_range {
@@ -270,7 +282,7 @@ std::copy(begin(range),
 
 ----
 
-This still doesn't handle unbounded ranges, but it could if you changed the
+This still doesn't handle unbounded sequences, but it could if you changed the
 iterators to input iterators.
 
 ----

@@ -1,6 +1,6 @@
 #include <vector>
 
-// sample(c_range_interface)
+// sample(c_range_interface_1)
 struct X { /*...*/ };
 
 int num_xs ();
@@ -8,11 +8,20 @@ int num_xs ();
 const X * get_x (int i);
 // end-sample
 
+// sample(c_range_interface_2)
+int num_xs ();
+
+void get_xs (X** xs);
+// end-sample
+
 int num_xs ()
 { return 0; }
 
 const X * get_x (int i)
 { return nullptr; }
+
+void get_xs (X** xs)
+{}
 
 void remove_x (int i)
 {}
@@ -22,12 +31,6 @@ void use(const X *)
 }
 void use(const X &)
 {
-}
-
-namespace cpp_interface_1 {
-// sample(c++_range_interface_1)
-std::vector<X> get_xs ();
-// end-sample
 }
 
 // sample(c++_lazy_range_interface)
@@ -75,6 +78,17 @@ for (int i = 0; i < num; ++i) {
 
 {
 // sample(c_range_usage_2)
+const int num = num_xs();
+std::vector<X*> xs(num);
+get_xs(&xs[0]);
+for (auto x : xs) {
+    use(x);
+}
+// end-sample
+}
+
+{
+// sample(c_range_usage_3)
 int num = num_xs();
 // some code to here change num,
 // in order to take a subset of num_xs() ...
@@ -86,7 +100,7 @@ for (int i = 0; i < num; ++i) {
 }
 
 {
-// sample(c_range_usage_3)
+// sample(c_range_usage_4)
 int num = num_xs();
 // Fiery explosion when i == num - 1.
 // If we're lucky.
