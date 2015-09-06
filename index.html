@@ -833,10 +833,10 @@ Come up with a good convention for reporting compilation errors to the user.
 
 ----
 
-You are not wrong to use non-regular types, impure functions, etc.
+Always reach first for the kind of client code you want to read, write, and
+reason about.
 
-Always reach first for the kind of code you want to read, write, and reason
-about.
+You are not wrong to use non-regular types, impure functions, etc.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 Get as close to that as you can.  Diverge from that only if you have to.
@@ -868,10 +868,15 @@ trying to implement the library around that.
 
 ----
 
-Think of this process as discovering correct solutions, not inventing them.
+Think of this process as discovering correct solutions, not inventing them;
+familiarity with other libraries helps.
 
 If you try something and it doesn't work or has notable warts, keep searching.
 <!-- .element: class="fragment" data-fragment-index="1" -->
+
+An important metric in this process: Make simple things easy to do, and
+complex things possible to do.
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 
@@ -1002,6 +1007,14 @@ void some_function (T a, T b)
 ----
 
 ```cpp
+template<typename T>
+concept bool Arithmetic() {
+    return requires(T x, T y) {
+        {x + y} -> T;
+        // ...
+    }
+}
+
 template <Arithmetic T>
 void some_function (T a, T b);
 ```

@@ -17,6 +17,14 @@ void some_function (T a, T b)
 
 #if 0
 // sample(constrained_template_decl)
+template<typename T>
+concept bool Arithmetic() {
+    return requires(T x, T y) {
+        {x + y} -> T;
+        // ...
+    }
+}
+
 template <Arithmetic T>
 void some_function (T a, T b);
 // end-sample
