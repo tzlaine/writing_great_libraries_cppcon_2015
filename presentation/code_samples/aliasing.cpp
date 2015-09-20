@@ -41,12 +41,17 @@ void xor_swap (int & a_, int & b_)
 
 namespace ok {
 // sample(ok_xor_swap)
-std::pair<int, int> xor_swap (int a, int b)
+struct int_pair
+{
+    int a, b;
+};
+
+int_pair xor_swap (int a, int b)
 {
     a ^= b;
     b ^= a;
     a ^= b;
-    return std::make_pair(a, b);
+    return int_pair{a, b};
 }
 // end-sample
 }
