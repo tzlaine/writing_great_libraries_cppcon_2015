@@ -1,0 +1,222 @@
+void xor_swap (int & a, int & b)
+{
+    a ^= b;
+    b ^= a;
+    a ^= b;
+}
+
+24 instructions:
+
+  pushq  %rbp
+  movq   %rsp, %rbp
+  movq   %rdi, -0x8(%rbp)
+  movq   %rsi, -0x10(%rbp)
+  movq   -0x10(%rbp), %rsi
+  movl   (%rsi), %eax
+  movq   -0x8(%rbp), %rsi
+  movl   (%rsi), %ecx
+  xorl   %eax, %ecx
+  movl   %ecx, (%rsi)
+  movq   -0x8(%rbp), %rsi
+  movl   (%rsi), %eax
+  movq   -0x10(%rbp), %rsi
+  movl   (%rsi), %ecx
+  xorl   %eax, %ecx
+  movl   %ecx, (%rsi)
+  movq   -0x10(%rbp), %rsi
+  movl   (%rsi), %eax
+  movq   -0x8(%rbp), %rsi
+  movl   (%rsi), %ecx
+  xorl   %eax, %ecx
+  movl   %ecx, (%rsi)
+  popq   %rbp
+  retq   
+
+
+void xor_swap (int & a, int & b)
+{
+    if (&a != &b) {
+        a ^= b;
+        b ^= a;
+        a ^= b;
+    }
+}
+
+27 instructions (including 1 branch):
+
+  pushq  %rbp
+  movq   %rsp, %rbp
+  movq   %rdi, -0x8(%rbp)
+  movq   %rsi, -0x10(%rbp)
+  movq   -0x8(%rbp), %rsi
+  cmpq   -0x10(%rbp), %rsi
+  je     0x100000cfa               ; bad::xor_swap(int&, int&) + 74 at aliasing.cpp:23
+  movq   -0x10(%rbp), %rax
+  movl   (%rax), %ecx
+  movq   -0x8(%rbp), %rax
+  movl   (%rax), %edx
+  xorl   %ecx, %edx
+  movl   %edx, (%rax)
+  movq   -0x8(%rbp), %rax
+  movl   (%rax), %ecx
+  movq   -0x10(%rbp), %rax
+  movl   (%rax), %edx
+  xorl   %ecx, %edx
+  movl   %edx, (%rax)
+  movq   -0x10(%rbp), %rax
+  movl   (%rax), %ecx
+  movq   -0x8(%rbp), %rax
+  movl   (%rax), %edx
+  xorl   %ecx, %edx
+  movl   %edx, (%rax)
+  popq   %rbp
+  retq   
+
+
+void xor_swap (int & a_, int & b_)
+{
+    int a = a_, b = b_;
+
+    a ^= b;
+    b ^= a;
+    a ^= b;
+
+    a_ = a; b_ = b;
+}
+
+30 instructions:
+
+  pushq  %rbp
+  movq   %rsp, %rbp
+  movq   %rdi, -0x8(%rbp)
+  movq   %rsi, -0x10(%rbp)
+  movq   -0x8(%rbp), %rsi
+  movl   (%rsi), %eax
+  movl   %eax, -0x14(%rbp)
+  movq   -0x10(%rbp), %rsi
+  movl   (%rsi), %eax
+  movl   %eax, -0x18(%rbp)
+  movl   -0x18(%rbp), %eax
+  movl   -0x14(%rbp), %ecx
+  xorl   %eax, %ecx
+  movl   %ecx, -0x14(%rbp)
+  movl   -0x14(%rbp), %eax
+  movl   -0x18(%rbp), %ecx
+  xorl   %eax, %ecx
+  movl   %ecx, -0x18(%rbp)
+  movl   -0x18(%rbp), %eax
+  movl   -0x14(%rbp), %ecx
+  xorl   %eax, %ecx
+  movl   %ecx, -0x14(%rbp)
+  movl   -0x14(%rbp), %eax
+  movq   -0x8(%rbp), %rsi
+  movl   %eax, (%rsi)
+  movl   -0x18(%rbp), %eax
+  movq   -0x10(%rbp), %rsi
+  movl   %eax, (%rsi)
+  popq   %rbp
+  retq   
+
+
+std::pair<int, int> xor_swap (int a, int b)
+{
+    a ^= b;
+    b ^= a;
+    a ^= b;
+    return std::make_pair(a, b);
+}
+
+52 instructions:
+
+  pushq  %rbp
+  movq   %rsp, %rbp
+  leaq   -0x58(%rbp), %rax
+  leaq   -0x78(%rbp), %rcx
+  leaq   -0x74(%rbp), %rdx
+  movl   %edi, -0x74(%rbp)
+  movl   %esi, -0x78(%rbp)
+  movl   -0x78(%rbp), %esi
+  movl   -0x74(%rbp), %edi
+  xorl   %esi, %edi
+  movl   %edi, -0x74(%rbp)
+  movl   -0x74(%rbp), %esi
+  movl   -0x78(%rbp), %edi
+  xorl   %esi, %edi
+  movl   %edi, -0x78(%rbp)
+  movl   -0x78(%rbp), %esi
+  movl   -0x74(%rbp), %edi
+  xorl   %esi, %edi
+  movl   %edi, -0x74(%rbp)
+  movq   %rdx, -0x60(%rbp)
+  movq   %rcx, -0x68(%rbp)
+  movq   -0x60(%rbp), %rcx
+  movq   %rcx, -0x50(%rbp)
+  movq   -0x50(%rbp), %rcx
+  movq   -0x68(%rbp), %rdx
+  movq   %rdx, -0x8(%rbp)
+  movq   -0x8(%rbp), %rdx
+  movq   %rax, -0x38(%rbp)
+  movq   %rcx, -0x40(%rbp)
+  movq   %rdx, -0x48(%rbp)
+  movq   -0x38(%rbp), %rax
+  movq   -0x40(%rbp), %rcx
+  movq   -0x48(%rbp), %rdx
+  movq   %rax, -0x20(%rbp)
+  movq   %rcx, -0x28(%rbp)
+  movq   %rdx, -0x30(%rbp)
+  movq   -0x20(%rbp), %rax
+  movq   -0x28(%rbp), %rcx
+  movq   %rcx, -0x18(%rbp)
+  movq   -0x18(%rbp), %rcx
+  movl   (%rcx), %esi
+  movl   %esi, (%rax)
+  movq   -0x30(%rbp), %rcx
+  movq   %rcx, -0x10(%rbp)
+  movq   -0x10(%rbp), %rcx
+  movl   (%rcx), %esi
+  movl   %esi, 0x4(%rax)
+  movq   -0x58(%rbp), %rax
+  movq   %rax, -0x70(%rbp)
+  movq   -0x70(%rbp), %rax
+  popq   %rbp
+  retq   
+
+
+struct int_pair
+{
+    int a, b;
+};
+
+int_pair xor_swap (int a, int b)
+{
+    a ^= b;
+    b ^= a;
+    a ^= b;
+    return int_pair{a, b};
+}
+
+23 instructions:
+
+  pushq  %rbp
+  movq   %rsp, %rbp
+  movl   %edi, -0xc(%rbp)
+  movl   %esi, -0x10(%rbp)
+  movl   -0x10(%rbp), %esi
+  movl   -0xc(%rbp), %edi
+  xorl   %esi, %edi
+  movl   %edi, -0xc(%rbp)
+  movl   -0xc(%rbp), %esi
+  movl   -0x10(%rbp), %edi
+  xorl   %esi, %edi
+  movl   %edi, -0x10(%rbp)
+  movl   -0x10(%rbp), %esi
+  movl   -0xc(%rbp), %edi
+  xorl   %esi, %edi
+  movl   %edi, -0xc(%rbp)
+  movl   -0xc(%rbp), %esi
+  movl   %esi, -0x8(%rbp)
+  movl   -0x10(%rbp), %esi
+  movl   %esi, -0x4(%rbp)
+  movq   -0x8(%rbp), %rax
+  popq   %rbp
+  retq   
