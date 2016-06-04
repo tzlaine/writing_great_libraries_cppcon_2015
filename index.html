@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Writing Great Libraries CppCon 2015</title>
+    <title>Writing Great Libraries</title>
 
     <meta name="author", content="T. Zachary Laine">
 
@@ -41,8 +41,7 @@
         <script type="text/template">
 
 # Writing Great Libraries
-## 89 Easy Steps
-### Zach Laine, CppCon 2015
+### Zach Laine
 
 ====================
 
@@ -890,13 +889,13 @@ complex things possible to do.
 A linear algebra library.
 
 ```cpp
-matrix_t saxpy (double a, matrix_t const & x, matrix_t const & y);
+matrix_t saxpy (float a, matrix_t const & x, matrix_t const & y);
 auto z = saxpy(a, x, y); // Wha?
 ```
 <!-- .element: style="font-size: 0.6em;" -->
 
 ```cpp
-matrix_t operator* (double a, matrix_t const & x);
+matrix_t operator* (float a, matrix_t const & x);
 matrix_t operator+ (matrix_t const & x, matrix_t const & y);
 auto z = a * x + y; // Now this I get.
 ```

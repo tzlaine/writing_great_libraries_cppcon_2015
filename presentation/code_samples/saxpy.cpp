@@ -4,25 +4,25 @@ struct matrix_t
 };
 
 // sample(bad_matrix_interface)
-matrix_t saxpy (double a, matrix_t const & x, matrix_t const & y);
+matrix_t saxpy (float a, matrix_t const & x, matrix_t const & y);
 // end-sample
 
-matrix_t saxpy (double a, matrix_t const & x, matrix_t const & y)
+matrix_t saxpy (float a, matrix_t const & x, matrix_t const & y)
 { return matrix_t{}; }
 
 // sample(good_matrix_interface)
-matrix_t operator* (double a, matrix_t const & x);
+matrix_t operator* (float a, matrix_t const & x);
 matrix_t operator+ (matrix_t const & x, matrix_t const & y);
 // end-sample
 
-matrix_t operator* (double a, matrix_t const & x)
+matrix_t operator* (float a, matrix_t const & x)
 { return matrix_t{}; }
 matrix_t operator+ (matrix_t const & x, matrix_t const & y)
 { return matrix_t{}; }
 
 int main ()
 {
-double a;
+float a;
 matrix_t x, y;
 
 {
