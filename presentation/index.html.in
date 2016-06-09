@@ -316,7 +316,7 @@ What happens when we try to restrict the number of X's we want?
 We might introduce an indexing error!
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-If num_xs() < num and we do not check that x != nullptr, we get UB (and a crash if we're lucky).
+If num_xs() <= num and we do not check that x != nullptr, we get UB (and a crash if we're lucky).
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
